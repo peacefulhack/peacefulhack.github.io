@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli("sql12.freesqldatabase.com", "sql12316146", "dXZvVnCULK", "sql12316146");
+$conn = new mysqli("localhost", "root", "", "crud_vue");
 if($conn->connect_error){
     die("Koneksi Error!".$conn->connect_error);
 }

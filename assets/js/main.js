@@ -15,7 +15,7 @@ var app = new Vue({
     },
     methods: {
         getAllUsers(){
-            axios.get("https://peacefulhack.github.io/controller/conn.php?action=read").then(function(response){
+            axios.get("http://localhost/2019/belajar/crudvue/controller/conn.php?action=read").then(function(response){
                 if(response.data.error){
                     app.errorMsg = response.data.message;
                 }
@@ -26,7 +26,7 @@ var app = new Vue({
         },
         addUser(){
             var formData = app.toFormData(app.newUser);
-            axios.post("https://peacefulhack.github.io/controller/conn.php?action=create", formData).then(function(response){
+            axios.post("http://localhost/2019/belajar/crudvue/controller/conn.php?action=create", formData).then(function(response){
                 app.newUser = {name: "",nrp: "",email: ""};
                 if(response.data.error){ 
                     app.errorMsg = response.data.message;
@@ -40,7 +40,7 @@ var app = new Vue({
 
         updateUser(){
             var formData = app.toFormData(app.currentUser);
-            axios.post("https://peacefulhack.github.io/controller/conn.php?action=update", formData).then(function(response){
+            axios.post("http://localhost/2019/belajar/crudvue/controller/conn.php?action=update", formData).then(function(response){
                 app.currentUser = {};
                 if(response.data.error){ 
                     app.errorMsg = response.data.message;
@@ -54,7 +54,7 @@ var app = new Vue({
 
         deleteUser(){
             var formData = app.toFormData(app.currentUser);
-            axios.post("https://peacefulhack.github.io/controller/conn.php?action=delete", formData).then(function(response){
+            axios.post("http://localhost/2019/belajar/crudvue/controller/conn.php?action=delete", formData).then(function(response){
                 app.currentUser = {};
                 if(response.data.error){ 
                     app.errorMsg = response.data.message;

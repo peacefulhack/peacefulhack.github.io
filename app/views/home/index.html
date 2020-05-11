@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+ 
+{% block body %}
+<div class="container mt-5 pt-5">
+    <h3>Form Sumbangan</h3>
+    {% if pesan is defined %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ pesan }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <form action="insert" method="POST">
+        <div class="form-group">
+          <label for="name">Nama</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Contoh: Jhon">
+          
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Jenis Kelamin</label>
+          <select class="form-control" id="gender" name="gender">
+            <option value="0">Laki-Laki</option>
+            <option value="1">Perempuan</option>
+          </select>
+        </div>
+
+        <div class="form-group field_wrapper">
+            <label for="jenisSumbangan[]">Jenis Sumbangan</label>
+            <div class="row">
+                <div class="col-11">
+                    <input class="form-control" type="text" list="jenisSumbangan[]" name="jenisSumbangan[]" />
+                    <datalist id="jenisSumbangan[]">
+                        {% for a in jenis %}
+                        <option>{{ a.name }}</option>
+                        {% endfor %}
+                    </datalist>
+                    <label for="jumlah[]">Jumlah</label>
+                    <input type="number" class="form-control" id="jumlah[]" name="jumlah[]" placeholder="Contoh: 12">
+                    <small id="jumlah" class="form-text text-muted">dalam satuan kg/pcs.</small>
+                </div>
+                <div class="col">
+                    <a href="javascript:void(0);" class="add_button btn btn-primary" title="Add field">+</a>
+                </div>
+                
+            </div>
+          </div>
+        <button type="submit" name="submit" id="submit" class="btn btn-primary">Sumbang</button>
+      </form>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = '<div><label for="jenisSumbangan[]">Jenis Sumbangan</label><div class="row"> '+
+                        '    <div class="col-11"> '+
+                        '        <input class="form-control" type="text" list="jenisSumbangan" name="jenisSumbangan[]"/> '+
+                        '        <datalist id="jenisSumbangan"> '+
+                        '            <option>beras</option> '+
+                        '            <option>minyak</option> '+
+                        '            <option>air</option> '+
+                        '            <option>roti</option> '+
+                        '        </datalist> '+
+                        '        <label for="jumlah">Jumlah</label> '+
+                        '        <input type="number" class="form-control" id="jumlah[]" name="jumlah[]" placeholder="Contoh: 12"> '+
+                        '        <small id="jumlah" class="form-text text-muted">dalam satuan kg/pcs.</small> '+
+                        '    </div> '+
+                        '    <div class="col"> '+
+                        '        <a href="javascript:void(0);" class="remove_button btn btn-danger">-</a> '+
+                        '    </div> '+
+                        '</div><div>'; //New input field html
+        var x = 1; //Initial field counter is 1
+        
+        //Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){ 
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }
+        });
+        
+        //Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').parent('div').parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+</script>
+{% endblock %}

@@ -600,13 +600,13 @@ body {
   }
   
   #stage .card .back::before {
-    content: 'Whot';
+    content: 'Wafi';
     -webkit-transform: rotate(180deg);
             transform: rotate(180deg);
   }
   
   #stage .card .back::after {
-    content: 'Whot';
+    content: 'Wafi';
   }
   
   @-webkit-keyframes animate {
